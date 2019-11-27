@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="foo" class="com.bgw.ioc.sample2.Foo">
+        <constructor-arg ref="baz" />
+        <constructor-arg ref="bar" />
+    </bean>
+
+    <bean id="bar" class="com.bgw.ioc.sample2.Bar"/>
+    <bean id="baz" class="com.bgw.ioc.sample2.Baz"/>
+
+    <bean id="exampleBeanOne" class="com.bgw.ioc.sample2.ExampleBeanOne" >
+        <constructor-arg index="1" value="abc" />
+        <constructor-arg index="0" value="2019" />
+    </bean>
+
+    <bean id="exampleBeanTwo" class="com.bgw.ioc.sample2.ExampleBeanTwo">
+        <property name="year" value="2020"/>
+    </bean>
+</beans>
