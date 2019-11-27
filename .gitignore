@@ -1,0 +1,15 @@
+*/target/
+/.settings/
+*.classpath
+*.project
+.out/
+logs/
+.idea/
+*.iml
+.idea/
+*.class
+*.jar
+*.properties
+*.lst
+*.original
+
