@@ -15,7 +15,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author zhibin.wang
  * @since 2019-11-23 19:13
  **/
-public class SampleTestCase {
+public class Sample2TestCase {
     private ApplicationContext applicationContext;
     private String configLocation;
     @Before

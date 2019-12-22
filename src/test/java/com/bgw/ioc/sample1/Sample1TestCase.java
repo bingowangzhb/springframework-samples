@@ -13,7 +13,7 @@ import org.springframework.context.support.GenericApplicationContext;
  * @author zhibin.wang
  * @since 2019-11-23 19:13
  **/
-public class SampleTestCase {
+public class Sample1TestCase {
 
     private ApplicationContext applicationContext;
     private String configLocation;
