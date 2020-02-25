@@ -27,7 +27,6 @@ public class Sample1TestCase {
 
     @Test
     public void testContext() {
-
         printPerson(applicationContext);
     }
 

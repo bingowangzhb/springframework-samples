@@ -7,6 +7,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.util.ClassUtils;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Sample8TestCase
@@ -25,6 +33,17 @@ public class Sample8TestCase {
 
     @Test
     public void testOnly() {
-        System.out.println(applicationContext.getBean(Person.class));
+        //System.out.println(applicationContext.getBean(Person.class));
+        Person person = new Person();
+
+        List<String> list = new ArrayList<>();
+
+        new AnnotationConfigApplicationContext();
     }
 }
+
+/**
+ * class sun.misc.Launcher$AppClassLoader
+ * class sun.misc.Launcher$AppClassLoader
+ * class sun.misc.Launcher$AppClassLoader
+ */
