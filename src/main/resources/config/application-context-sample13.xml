@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="exampleBean" class="com.bgw.ioc.xml.sample3.ExampleBean">
+        <!-- setter injection using the nested ref element -->
+        <constructor-arg name="beanOne" ref="anotherBean"/>
+        <!-- setter injection using the neater ref attribute -->
+        <constructor-arg name="beanTwo" ref="yetAnotherBean"/>
+        <constructor-arg name="i" value="100"/>
+    </bean>
+
+    <bean id="anotherBean" class="com.bgw.ioc.xml.sample3.AnotherBean">
+        <constructor-arg value="anotherBean"/>
+    </bean>
+    <bean id="yetAnotherBean" class="com.bgw.ioc.xml.sample3.YetAnotherBean">
+        <constructor-arg value="yetAnotherBean" />
+    </bean>
+    <!--<bean id="cyclicalBean" class="com.bgw.ioc.xml.sample3.CyclicalBean" >-->
+        <!--<property name="name" value="cyclicalBean"/>-->
+        <!--<property name="anotherCyclicalBean" ref="anotherCyclicalBean"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="anotherCyclicalBean" class="com.bgw.ioc.xml.sample3.AnotherCyclicalBean" >-->
+        <!--<property name="name" value="anotherCyclicalBean" />-->
+        <!--<property name="cyclicalBean" ref="cyclicalBean"/>-->
+    <!--</bean>-->
+
+</beans>
