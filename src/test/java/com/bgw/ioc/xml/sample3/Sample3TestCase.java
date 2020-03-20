@@ -17,22 +17,30 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Sample3TestCase {
     private ApplicationContext applicationContext;
     private BeanFactory bf;
-    private String configLocation;
+
     @Before
     public void init() {
-        configLocation = "config/application-context-sample13.xml";
+        String configLocation = "config/application-context-sample3.xml";
         applicationContext = new ClassPathXmlApplicationContext(configLocation);
         bf = new ClassPathXmlApplicationContext(configLocation);
-
     }
 
     @Test
     public void testCyclicalDependency() {
-        CyclicalBean cyclicalBean = applicationContext.getBean(CyclicalBean.class);
-        AnotherCyclicalBean anotherCyclicalBean = applicationContext.getBean(AnotherCyclicalBean.class);
+        CyclicalBeanOne cyclicalBeanOne = (CyclicalBeanOne) applicationContext.getBean("cyclicalBeanOne");
+        CyclicalBeanTwo cyclicalBeanTwo = (CyclicalBeanTwo) applicationContext.getBean("cyclicalBeanTwo");
 
-        System.out.println(cyclicalBean);
-        System.out.println(anotherCyclicalBean);
+        System.out.println(cyclicalBeanOne);
+        System.out.println(cyclicalBeanTwo);
+    }
+
+    @Test
+    public void testAnotherCyclicalDependency() {
+        AnotherCyclicalBeanOne beanOne = (AnotherCyclicalBeanOne) applicationContext.getBean("anotherCyclicalBeanOne");
+        AnotherCyclicalBeanTwo beanTwo = (AnotherCyclicalBeanTwo) applicationContext.getBean("anotherCyclicalBeanTwo");
+
+        System.out.println(beanOne.hashCode());
+        System.out.println(beanTwo.hashCode());
     }
 
 

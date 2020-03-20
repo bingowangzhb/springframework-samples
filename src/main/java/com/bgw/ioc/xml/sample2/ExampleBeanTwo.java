@@ -10,11 +10,21 @@ public class ExampleBeanTwo {
 
     private int year;
 
+    private ExampleBeanOne exampleBeanOne;
+
     public int getYear() {
         return year;
     }
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public ExampleBeanOne getExampleBeanOne() {
+        return exampleBeanOne;
+    }
+
+    public void setExampleBeanOne(ExampleBeanOne exampleBeanOne) {
+        this.exampleBeanOne = exampleBeanOne;
     }
 }

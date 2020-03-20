@@ -26,12 +26,7 @@ public class Sample8TestCase {
 
     @Test
     public void testOnly() {
-        //System.out.println(applicationContext.getBean(Person.class));
-        Person person = new Person();
-
-        List<String> list = new ArrayList<>();
-
-        new AnnotationConfigApplicationContext();
+        System.out.println(applicationContext.getBean("person"));
     }
 }
 

@@ -3,6 +3,7 @@ package com.bgw.ioc.annotation.sample8.config;
 import com.bgw.ioc.annotation.sample8.Person;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 
 /**
@@ -14,8 +15,8 @@ import org.springframework.context.annotation.Scope;
 @Configuration("sample8Config")
 public class Sample8Config {
 
-    @Scope(value = "singleton")
-    @Bean()
+    @Lazy
+    @Bean
     public Person person() {
         return new Person("James", 23);
     }

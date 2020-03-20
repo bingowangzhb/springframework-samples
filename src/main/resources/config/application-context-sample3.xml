@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="cyclicalBeanOne" class="com.bgw.ioc.xml.sample3.CyclicalBeanOne">
+        <constructor-arg name="name" value="cyclicalBeanOne"/>
+        <constructor-arg name="cyclicalBeanTwo" ref="cyclicalBeanTwo"/>
+    </bean>
+
+    <bean id="cyclicalBeanTwo" class="com.bgw.ioc.xml.sample3.CyclicalBeanTwo">
+        <constructor-arg name="name" value="cyclicalBeanOne"/>
+        <constructor-arg name="cyclicalBeanOne" ref="cyclicalBeanOne"/>
+    </bean>
+
+
+<!--    <bean id="anotherCyclicalBeanOne" class="com.bgw.ioc.xml.sample3.AnotherCyclicalBeanOne">-->
+<!--        <property name="name" value="one"/>-->
+<!--        <property name="anotherCyclicalBeanTwo" ref="anotherCyclicalBeanTwo"/>-->
+<!--    </bean>-->
+
+<!--    <bean id="anotherCyclicalBeanTwo" class="com.bgw.ioc.xml.sample3.AnotherCyclicalBeanTwo">-->
+<!--        <property name="name" value="two"/>-->
+<!--        <property name="anotherCyclicalBeanOne" ref="anotherCyclicalBeanOne"/>-->
+<!--    </bean>-->
+</beans>

@@ -16,7 +16,7 @@ public class Sample5TestCase {
 
     @Before
     public void init() {
-        String configLocation = "config/application-context-sample15.xml";
+        String configLocation = "config/application-context-sample5.xml";
         applicationContext = new ClassPathXmlApplicationContext(configLocation);
     }
 
