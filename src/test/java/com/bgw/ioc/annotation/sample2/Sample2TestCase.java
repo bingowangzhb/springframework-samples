@@ -1,13 +1,12 @@
-package com.bgw.ioc.annotation.sample1.sample2;
+package com.bgw.ioc.annotation.sample2;
 
-import com.bgw.ioc.annotation.sample1.TransferService;
-import com.bgw.ioc.annotation.sample1.config.SystemTestConfig;
-import com.bgw.ioc.annotation.sample2.FooService;
 import com.bgw.ioc.annotation.sample2.config.Sample2Config;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.util.stream.Stream;
 
 /**
  * Sample2TestCase
@@ -29,6 +28,7 @@ public class Sample2TestCase {
     public void testDependency() {
         FooService fooService = applicationContext.getBean(FooService.class);
         System.out.println(fooService);
+
     }
 
 }
