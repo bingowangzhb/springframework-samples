@@ -6,8 +6,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.stream.Stream;
-
 /**
  * Sample2TestCase
  *
@@ -25,10 +23,15 @@ public class Sample2TestCase {
     }
 
     @Test
-    public void testDependency() {
+    public void testFooService() {
         FooService fooService = applicationContext.getBean(FooService.class);
         System.out.println(fooService);
+    }
 
+    @Test
+    public void testBarService() {
+        BarService barService = applicationContext.getBean(BarService.class);
+        System.out.println(barService);
     }
 
 }

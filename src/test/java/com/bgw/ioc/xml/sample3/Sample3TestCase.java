@@ -27,22 +27,12 @@ public class Sample3TestCase {
 
     @Test
     public void testCyclicalDependency() {
-        CyclicalBeanOne cyclicalBeanOne = (CyclicalBeanOne) applicationContext.getBean("cyclicalBeanOne");
-        CyclicalBeanTwo cyclicalBeanTwo = (CyclicalBeanTwo) applicationContext.getBean("cyclicalBeanTwo");
+        BeanA beanA = (BeanA)applicationContext.getBean("beanA");
+        BeanB beanB = (BeanB)applicationContext.getBean("beanB");
 
-        System.out.println(cyclicalBeanOne);
-        System.out.println(cyclicalBeanTwo);
+        System.out.println(beanA);
+        System.out.println(beanB);
     }
-
-    @Test
-    public void testAnotherCyclicalDependency() {
-        AnotherCyclicalBeanOne beanOne = (AnotherCyclicalBeanOne) applicationContext.getBean("anotherCyclicalBeanOne");
-        AnotherCyclicalBeanTwo beanTwo = (AnotherCyclicalBeanTwo) applicationContext.getBean("anotherCyclicalBeanTwo");
-
-        System.out.println(beanOne.hashCode());
-        System.out.println(beanTwo.hashCode());
-    }
-
 
     @Test
     public void testDependency() {

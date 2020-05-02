@@ -1,5 +1,6 @@
 package com.bgw.ioc.annotation.sample2.config;
 
+import com.bgw.ioc.annotation.sample2.BarService;
 import com.bgw.ioc.annotation.sample2.FooService;
 import com.bgw.ioc.annotation.sample2.GenericBean;
 import com.bgw.ioc.annotation.sample2.Parent;
@@ -40,4 +41,8 @@ public class Sample2Config {
         return new FooService();
     }
 
+//    @Bean
+//    public BarService barService() {
+//        return new BarService();
+//    }
 }
