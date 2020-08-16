@@ -7,9 +7,9 @@ public class Main {
     public static void main(String[] args) {
         ProxyFactory proxyFactory = new ProxyFactory(new SimplePojo());
         proxyFactory.addInterface(Pojo.class);
-        proxyFactory.addAdvice(new BeforeAdvice());
-
+        proxyFactory.addAdvice(new MyMethodInterceptor());
+        proxyFactory.addAdvice(new MyMethodInterceptor());
         Pojo proxy = (Pojo)proxyFactory.getProxy();
-        proxy.foo();
+        proxy.foo("hello", 24);
     }
 }
