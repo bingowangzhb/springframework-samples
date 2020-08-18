@@ -26,11 +26,12 @@ public class Sample8TestCase {
 
     @Test
     public void testOnly() {
-        System.out.println(applicationContext.getBean("person"));
+        //System.out.println(applicationContext.getBean("person").getClass());
+        //System.out.println(applicationContext.getBean("personHolder").getClass());
     }
 }
 
-/**
+/*
  * class sun.misc.Launcher$AppClassLoader
  * class sun.misc.Launcher$AppClassLoader
  * class sun.misc.Launcher$AppClassLoader

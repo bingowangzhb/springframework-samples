@@ -1,4 +1,4 @@
-package com.bgw.aop.proxy;
+package com.bgw.aop.common;
 
 /**
  * HelloService
@@ -9,8 +9,9 @@ package com.bgw.aop.proxy;
 public interface HelloService {
     /**
      * sayHello
+     * @param name name
      */
-    void sayHello();
+    String sayHello(String name);
 
     /**
      * hashCode

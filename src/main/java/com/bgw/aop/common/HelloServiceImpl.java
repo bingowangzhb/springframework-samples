@@ -1,4 +1,4 @@
-package com.bgw.aop.proxy;
+package com.bgw.aop.common;
 
 /**
  * HelloServiceImpl
@@ -9,9 +9,8 @@ package com.bgw.aop.proxy;
 public class HelloServiceImpl implements HelloService {
 
     @Override
-    public void sayHello() {
+    public String sayHello(String name) {
         System.out.println("Hello World....");
+        return "Hello, " + name;
     }
-
-
 }

@@ -1,6 +1,10 @@
-package com.bgw.aop.sample1;
+package com.bgw.aop.common;
 
-public class SimplePojo implements Pojo {
+/**
+ * FooServiceImpl
+ * @author zhibin.wang
+ */
+public class FooServiceImpl implements FooService {
 
     @Override
     public void foo(String name, Integer age) {

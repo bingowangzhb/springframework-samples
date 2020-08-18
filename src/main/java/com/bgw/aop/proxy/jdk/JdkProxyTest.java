@@ -1,7 +1,7 @@
 package com.bgw.aop.proxy.jdk;
 
-import com.bgw.aop.proxy.HelloService;
-import com.bgw.aop.proxy.HelloServiceImpl;
+import com.bgw.aop.common.HelloService;
+import com.bgw.aop.common.HelloServiceImpl;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
@@ -29,13 +29,13 @@ public class JdkProxyTest {
         HelloService helloService = new HelloServiceImpl();
         MyInvocationHandler myInvocationHandler = new MyInvocationHandler(helloService);
         HelloService proxy = (HelloService) Proxy.newProxyInstance(JdkProxyTest.class.getClassLoader(), helloService.getClass().getInterfaces(), myInvocationHandler);
-        proxy.sayHello();
+        proxy.sayHello("");
 
         // []
         System.out.println("HelloService.class.getInterfaces() = " + Arrays.toString(HelloService.class.getInterfaces()));
-        // [interface com.bgw.aop.proxy.HelloService]
+        // [interface com.bgw.aop.common.HelloService]
         System.out.println("HelloServiceImpl.class.getInterfaces() = " + Arrays.toString(HelloServiceImpl.class.getInterfaces()));
-        // [interface com.bgw.aop.proxy.HelloService]
+        // [interface com.bgw.aop.common.HelloService]
         System.out.println("helloService.getClass().getInterfaces() = " + Arrays.toString(helloService.getClass().getInterfaces()));
 
 
@@ -70,7 +70,7 @@ public class JdkProxyTest {
         // 3. new InvocationHandler
         InvocationHandler ih = new MyInvocationHandler(new HelloServiceImpl());
         HelloService helloService = (HelloService) constructor.newInstance(ih);
-        helloService.sayHello();
+        helloService.sayHello("");
 
     }
 

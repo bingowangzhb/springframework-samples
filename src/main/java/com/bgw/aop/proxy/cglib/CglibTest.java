@@ -1,7 +1,6 @@
 package com.bgw.aop.proxy.cglib;
 
-import com.bgw.aop.proxy.HelloService;
-import com.bgw.aop.proxy.HelloServiceImpl;
+import com.bgw.aop.common.HelloServiceImpl;
 import org.springframework.cglib.proxy.Enhancer;
 
 /**
@@ -19,6 +18,6 @@ public class CglibTest {
         enhancer.setCallback(new MyMethodInterceptor());
 
         HelloServiceImpl helloService = (HelloServiceImpl) enhancer.create();
-        helloService.sayHello();
+        helloService.sayHello("");
     }
 }
