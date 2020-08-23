@@ -7,8 +7,12 @@ package com.bgw.aop.sample2.service;
  * @since 2020/8/9 23:20
  **/
 public interface BarService {
+
     /**
-     * bar()
+     * bar
+     * @param name name
+     * @param age age
+     * @return String
      */
-    void bar();
+    String bar(String name, int age);
 }

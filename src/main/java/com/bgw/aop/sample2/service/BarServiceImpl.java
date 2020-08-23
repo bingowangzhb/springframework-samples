@@ -8,7 +8,10 @@ package com.bgw.aop.sample2.service;
  **/
 public class BarServiceImpl implements BarService {
     @Override
-    public void bar() {
+    public String bar(String name, int age) {
         System.out.println("-------------------------bar()------------------------------");
+        System.out.println("name=" + name + ", age=" + age);
+
+        return "Hello, " + name + ", age=" + age;
     }
 }

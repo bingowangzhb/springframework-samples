@@ -20,7 +20,6 @@ public class Sample2Main {
 
         // proxyTargetClass = false 默认 Jdk动态代理
         // proxyTargetClass = true CGLIB动态代理
-        System.out.println(barService.getClass());
-        barService.bar();
+        barService.bar("bingo", 23);
     }
 }
