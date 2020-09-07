@@ -24,15 +24,17 @@ public class MyAspect {
     }
 
     /**
-     * @Before("pointcut()")
+     *
      */
+    @Before("pointcut()")
     public void before() {
         System.out.println("this is from MyAspect#before...");
     }
 
     /**
-     * @After("pointcut()")
+     *
      */
+    @After("pointcut()")
     public void after() {
         System.out.println("this is from MyAspect#after...");
     }
@@ -53,8 +55,8 @@ public class MyAspect {
 
     /**
      * 此处需要注意：若写了@Around方法，那么最后只会执行@Around和@AfterReturning 其它的都不会执行
+     *  @Around("pointcut()")
      */
-    @Around("pointcut()")
     public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
         System.out.println("this is from HelloAspect#around...");
         // 获取方法参数值数组

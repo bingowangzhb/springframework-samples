@@ -25,7 +25,11 @@ public class Sample1TestCase {
 
     @Test
     public void testContext() {
-        applicationContext.getBean("person123");
-        applicationContext.getBean("str");
+        // applicationContext.getBean("");
+        // applicationContext.getBean("str");
+
+        Cat cat = (Cat) applicationContext.getBean("cat");
+
+        System.out.println(cat.getName() + ": " + cat.getType());
     }
 }
