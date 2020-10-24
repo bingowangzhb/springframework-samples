@@ -28,6 +28,9 @@ public class Sample8TestCase {
     public void testOnly() {
         //System.out.println(applicationContext.getBean("person").getClass());
         //System.out.println(applicationContext.getBean("personHolder").getClass());
+
+        System.out.println("applicationContext.getBean(\"catFactory\") = " + applicationContext.getBean("catFactory").getClass());
+        System.out.println("applicationContext.getBean(\"&catFactory\") = " + applicationContext.getBean("&catFactory").getClass());
     }
 }
 

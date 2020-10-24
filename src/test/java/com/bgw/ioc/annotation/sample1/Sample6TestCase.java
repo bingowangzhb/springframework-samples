@@ -4,6 +4,7 @@ import com.bgw.ioc.annotation.sample1.config.SystemTestConfig;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
@@ -18,6 +19,7 @@ public class Sample6TestCase {
     @Before
     public void init() {
         applicationContext = new AnnotationConfigApplicationContext(SystemTestConfig.class);
+        ((ConfigurableApplicationContext) applicationContext).registerShutdownHook();
     }
 
     @Test
