@@ -1,0 +1,90 @@
+@startuml
+interface Aware{}
+
+interface BeanNameAware extends Aware{
+  + {abstract} void setBeanName(String name)
+}
+interface BeanFactoryAware extends Aware{
+  + {abstract} void setBeanFactory(BeanFactory beanFactory)
+}
+interface BeanClassLoaderAware extends Aware{
+  + void {abstract} setBeanClassLoader(ClassLoader classLoader)
+}
+interface BeanPostProcessor{
+  + {abstract} Object postProcessBeforeInitialization(Object bean, String beanName)
+  + {abstract} Object postProcessAfterInitialization(Object bean, String beanName)
+}
+interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
+  + {abstract} Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName)
+  + {abstract} boolean postProcessAfterInstantiation(Object bean, String beanName)
+  + {abstract} PropertyValues postProcessProperties(PropertyValues pvs, Object bean, String beanName)
+  + {abstract} PropertyValues postProcessPropertyValues(PropertyValues pvs, PropertyDescriptor[] pds, Object bean, String beanName)
+}
+interface SmartInstantiationAwareBeanPostProcessor extends InstantiationAwareBeanPostProcessor {
+  + {abstract} Class<?> predictBeanType(Class<?> beanClass, String beanName)
+  + {abstract} Constructor<?>[] determineCandidateConstructors(Class<?> beanClass, String beanName)
+  + {abstract} Object getEarlyBeanReference(Object bean, String beanName)
+}
+
+class ProxyConfig{
+  - boolean proxyTargetClass
+  - boolean exposeProxy
+}
+class ProxyProcessorSupport extends ProxyConfig implements BeanClassLoaderAware,AopInfrastructure,Ordered{
+  - int order = Ordered.LOWEST_PRECEDENCE
+  # void evaluateProxyInterfaces(Class<?> beanClass, ProxyFactory proxyFactory)
+  # boolean isConfigurationCallbackInterface(Class<?> ifc)
+  # boolean isInternalLanguageInterface(Class<?> ifc)
+}
+abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport implements BeanFactoryAware, SmartInstantiationAwareBeanPostProcessor {
+  - AdvisorAdapterRegistry advisorAdapterRegistry
+  - TargetSourceCreator[] customTargetSourceCreators
+  - final Set<String> targetSourcedBeans
+  - final Map<Object, Object> earlyProxyReferences
+  - final Map<Object, Class<?>> proxyTypes
+  - final Map<Object, Boolean> advisedBeans
+  __
+  + public Class<?> predictBeanType(Class<?> beanClass, String beanName)
+
+  + Object getEarlyBeanReference(Object bean, String beanName)
+
+  + Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName)
+  .. proxy will be created in this callback ..
+  + Object postProcessAfterInitialization(@Nullable Object bean, String beanName)
+
+}
+class BeanNameAutoProxyCreator extends AbstractAutoProxyCreator {}
+abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyCreator {
+  # boolean shouldSkip(Class<?> beanClass, String beanName)
+}
+
+
+class DefaultAdvisorAutoProxyCreator extends AbstractAdvisorAutoProxyCreator implements BeanNameAware {
+
+  + boolean isEligibleAdvisorBean(String beanName)
+}
+class InfrastructureAutoProxyCreator extends AbstractAdvisorAutoProxyCreator {
+  + boolean isEligibleAdvisorBean(String beanName)
+}
+
+class AspectJAwareAdvisorAutoProxyCreator extends AbstractAdvisorAutoProxyCreator {
+
+  # List<Advisor> sortAdvisors(List<Advisor> advisors)
+
+  # void extendAdvisors(List<Advisor> candidateAdvisors)
+
+  # boolean shouldSkip(Class<?> beanClass, String beanName)
+}
+
+class AnnotationAwareAspectJAutoProxyCreator extends AspectJAwareAdvisorAutoProxyCreator {
+  - List<Pattern> includePatterns
+  - AspectJAdvisorFactory aspectJAdvisorFactory
+  - BeanFactoryAspectJAdvisorsBuilder aspectJAdvisorsBuilder
+
+  # List<Advisor> findCandidateAdvisors()
+
+  # boolean isInfrastructureClass(Class<?> beanClass)
+
+  # boolean isEligibleAspectBean(String beanName)
+}
+@enduml

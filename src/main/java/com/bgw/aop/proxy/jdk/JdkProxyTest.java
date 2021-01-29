@@ -19,10 +19,12 @@ public class JdkProxyTest {
     public static void main(String[] args) throws Exception {
         System.setProperty("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
 
-        proxy1();
+        //proxy1();
         //proxy2();
         // proxy3();
         // proxy = Proxy + 实现类 + InvocationHandler
+
+        proxy4();
     }
 
     private static void proxy2() {
@@ -71,6 +73,16 @@ public class JdkProxyTest {
         InvocationHandler ih = new MyInvocationHandler(new HelloServiceImpl());
         HelloService helloService = (HelloService) constructor.newInstance(ih);
         helloService.sayHello("");
+
+    }
+
+    private static void proxy4() throws Exception {
+
+        PureInterfaceInvocationHandler invocationHandler = new PureInterfaceInvocationHandler(HelloService.class);
+        // 转换
+        HelloService proxy = (HelloService) invocationHandler.getProxy();
+
+        System.out.println("proxy.sayHello(\"abc\") = " + proxy.sayHello("abc"));
 
     }
 

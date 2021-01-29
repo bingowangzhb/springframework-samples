@@ -22,18 +22,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
  * @since 2019-11-26 18:14
  **/
 public class XmlParserTestCase {
-
-    private final String XML_PATH = "E:\\Codes\\IdeaProjects\\springframework-samples\\src\\main\\resources\\config\\w3c-dom-school.xml";
     private Document document;
 
     @Before
     public void init() throws Exception {
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-
-        DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        document = documentBuilder.parse(XML_PATH);
-        //System.out.println("DocumentImplClass:" + document.getImplementation());
-        //System.out.println("DocumentImplClass:" + document.getClass());
+        document = MyDocumentFactory.getDocument("w3c-dom-school.xml");
     }
 
     @Test
@@ -113,7 +106,6 @@ public class XmlParserTestCase {
         System.out.println("StudentChildNodes: " + childNodes.getLength());
         for (int i = 0; i < childNodes.getLength(); i++) {
             Node node = childNodes.item(i);
-
             System.out.println("node class : " + node.getClass());
             System.out.println("node name : " + node.getNodeName());
             System.out.println("node value : " + node.getNodeValue());

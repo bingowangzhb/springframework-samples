@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapper>
+    <select id="listAll" resultMap="blogResultMap">
+        select
+        <include refid="blogColumns" />
+        from blog
+        where 1 = 1
+    </select>
+</mapper>
