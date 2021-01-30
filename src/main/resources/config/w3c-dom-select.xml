@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mapper>
+<mapper namespace="com.bgw.w3c.MybatisXmlParseTest">
+james harden
+    <sql id="blogColumns">
+        id, name, author, content, create_time, update_time
+    </sql>
     <select id="listAll" resultMap="blogResultMap">
         select
         <include refid="blogColumns" />
