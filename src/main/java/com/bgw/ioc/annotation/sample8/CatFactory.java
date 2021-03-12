@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @author zhibin.wang
  * @since 2020/10/20 20:22
  */
-@Component
+@Component("cat")
 public class CatFactory implements FactoryBean<Cat> {
 
     @Override

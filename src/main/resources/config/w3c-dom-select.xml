@@ -4,10 +4,34 @@ james harden
     <sql id="blogColumns">
         id, name, author, content, create_time, update_time
     </sql>
-    <select id="listAll" resultMap="blogResultMap">
+
+    <select id="listAll" resultMap="blogResultMap" parameterType="hashmap">
         select
         <include refid="blogColumns" />
         from blog
         where 1 = 1
     </select>
+
+    <select id="get" resultType="Blob" parameterType="int">
+        select
+        <include refid="blogColumns" />
+        from blog
+        where id = #{id}
+    </select>
+
+
+    <script>
+        <![CDATA[
+            function match(a,b) {
+                if (a < b && a < 0) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        ]]>
+    </script>
+
+
 </mapper>

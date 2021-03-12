@@ -8,6 +8,7 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 /**
  * AppConfig
@@ -19,13 +20,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Sample8Config {
 
+    @Scope("singleton")
     @Bean(initMethod = "initMethod", destroyMethod = "destroyMethod")
     public Person person() {
         return new Person("James", 23);
     }
 
 
-    @Bean("catFactory")
+    @Bean("cat")
     public CatFactory catFactory() {
         return new CatFactory();
     }

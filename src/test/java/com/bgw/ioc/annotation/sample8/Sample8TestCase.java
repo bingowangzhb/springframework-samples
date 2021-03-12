@@ -6,9 +6,6 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Sample8TestCase
  *
@@ -26,11 +23,11 @@ public class Sample8TestCase {
 
     @Test
     public void testOnly() {
-        //System.out.println(applicationContext.getBean("person").getClass());
+        System.out.println(applicationContext.getBean("person").getClass());
         //System.out.println(applicationContext.getBean("personHolder").getClass());
 
-        System.out.println("applicationContext.getBean(\"catFactory\") = " + applicationContext.getBean("catFactory").getClass());
-        System.out.println("applicationContext.getBean(\"&catFactory\") = " + applicationContext.getBean("&catFactory").getClass());
+        //System.out.println("applicationContext.getBean(\"cat\") = " + applicationContext.getBean("cat").getClass());
+        //System.out.println("applicationContext.getBean(\"&cat\") = " + applicationContext.getBean("&cat").getClass());
     }
 }
 
