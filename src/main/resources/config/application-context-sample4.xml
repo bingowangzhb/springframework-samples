@@ -4,11 +4,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="person" class="com.bgw.ioc.xml.sample4.Person">
+    <bean id="person" class="com.wangzhb.spring.ioc.xml.sample4.Person">
         <property name="car" ref="car"/>
     </bean>
 
-    <bean id="car" class="com.bgw.ioc.xml.sample4.CarFactory">
+    <bean id="car" class="com.wangzhb.spring.ioc.xml.sample4.CarFactory">
         <property name="make" value="Benz"/>
         <property name="year" value="1984"/>
     </bean>

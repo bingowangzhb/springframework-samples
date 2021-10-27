@@ -11,5 +11,5 @@
     <bean id="clientService" factory-bean="serviceLocator" factory-method="createClientServiceInstance" lazy-init="true"/>
     <bean id="accountService" factory-bean="serviceLocator" factory-method="createAccountServiceInstance" lazy-init="true"/>
 
-    <bean id="serviceLocator" class="com.bgw.ioc.xml.sample6.DefaultServiceLocator" lazy-init="true"/>
+    <bean id="serviceLocator" class="com.wangzhb.spring.ioc.xml.sample6.DefaultServiceLocator" lazy-init="true"/>
 </beans>

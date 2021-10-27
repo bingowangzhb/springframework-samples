@@ -6,14 +6,14 @@
         http://www.springframework.org/schema/tx
         http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <bean id="person" name="bingo, wangzhb" class="com.bgw.ioc.xml.sample1.Person" init-method="init"
+    <bean id="person" name="bingo, wangzhb" class="com.wangzhb.spring.ioc.xml.sample1.Person" init-method="init"
           destroy-method="destroy" lazy-init="true">
         <property name="name" value="bingo"/>
         <property name="sex" value="1"/>
         <property name="age" value="33"/>
     </bean>
 
-    <bean id="cat" class="com.bgw.ioc.xml.sample1.Cat" >
+    <bean id="cat" class="com.wangzhb.spring.ioc.xml.sample1.Cat" >
         <property name="name" value="橘猫"/>
         <property name="type" value="2" />
     </bean>

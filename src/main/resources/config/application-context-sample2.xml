@@ -3,25 +3,25 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="foo" class="com.bgw.ioc.xml.sample2.Foo">
+    <bean id="foo" class="com.wangzhb.spring.ioc.xml.sample2.Foo">
         <constructor-arg ref="baz"/>
         <constructor-arg ref="bar"/>
     </bean>
 
-    <bean id="bar" class="com.bgw.ioc.xml.sample2.Bar"/>
-    <bean id="baz" class="com.bgw.ioc.xml.sample2.Baz"/>
+    <bean id="bar" class="com.wangzhb.spring.ioc.xml.sample2.Bar"/>
+    <bean id="baz" class="com.wangzhb.spring.ioc.xml.sample2.Baz"/>
 
-    <bean id="exampleBeanOne" class="com.bgw.ioc.xml.sample2.ExampleBeanOne">
+    <bean id="exampleBeanOne" class="com.wangzhb.spring.ioc.xml.sample2.ExampleBeanOne">
         <constructor-arg index="1" value="abc"/>
         <constructor-arg index="0" value="2019"/>
     </bean>
 
-    <bean id="exampleBeanTwo" class="com.bgw.ioc.xml.sample2.ExampleBeanTwo">
+    <bean id="exampleBeanTwo" class="com.wangzhb.spring.ioc.xml.sample2.ExampleBeanTwo">
         <property name="exampleBeanOne" ref="exampleBeanOne"/>
         <property name="year" value="2020"/>
     </bean>
 
-    <bean id="exampleBeanThree" class="com.bgw.ioc.xml.sample2.ExampleBeanThree">
+    <bean id="exampleBeanThree" class="com.wangzhb.spring.ioc.xml.sample2.ExampleBeanThree">
         <constructor-arg value="OK"/>
         <property name="exampleBeanOne" ref="exampleBeanOne"/>
     </bean>
