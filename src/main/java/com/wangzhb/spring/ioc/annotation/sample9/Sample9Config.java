@@ -13,9 +13,6 @@ import org.springframework.core.io.ClassPathResource;
  */
 @Configuration
 public class Sample9Config {
-
-
-
     @Bean
     public PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         PropertySourcesPlaceholderConfigurer placeholderConfigurer = new PropertySourcesPlaceholderConfigurer();

@@ -1,4 +1,4 @@
-package com.wangzhb.spring.ioc.annotation.sample2;
+package com.wangzhb.spring.ioc.annotation.sample12;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

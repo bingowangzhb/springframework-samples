@@ -1,5 +1,8 @@
 package com.wangzhb.spring.ioc.annotation.sample1.config;
 
+import com.wangzhb.spring.ioc.entity.Monkey;
+import com.wangzhb.spring.ioc.entity.Person;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -9,4 +12,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Sample1Config {
 
+    /**
+     * 如果没有指定name属性，则默认取方法名
+     *
+     * @return Person
+     */
+    @Bean
+    public Person person() {
+        return new Person();
+    }
+
+    @Bean(name = "mky")
+    public Monkey monkey() {
+        return new Monkey();
+    }
 }

@@ -1,6 +1,6 @@
-package com.wangzhb.spring.ioc.annotation.sample2.config;
+package com.wangzhb.spring.ioc.annotation.sample12.config;
 
-import com.wangzhb.spring.ioc.annotation.sample2.FooService;
+import com.wangzhb.spring.ioc.annotation.sample12.FooService;
 import org.springframework.context.annotation.Bean;
 
 /**

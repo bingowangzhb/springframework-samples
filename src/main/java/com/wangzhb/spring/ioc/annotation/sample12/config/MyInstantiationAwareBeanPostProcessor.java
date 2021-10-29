@@ -1,4 +1,4 @@
-package com.wangzhb.spring.ioc.annotation.sample2.config;
+package com.wangzhb.spring.ioc.annotation.sample12.config;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.PropertyValues;

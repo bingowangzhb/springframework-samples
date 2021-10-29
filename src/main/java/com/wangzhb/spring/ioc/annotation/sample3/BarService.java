@@ -1,4 +1,4 @@
-package com.wangzhb.spring.ioc.annotation.sample4;
+package com.wangzhb.spring.ioc.annotation.sample3;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

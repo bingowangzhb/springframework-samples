@@ -14,17 +14,20 @@ public class MyMethodInterceptor implements MethodInterceptor {
 
     @Override
     public Object invoke(MethodInvocation invocation) throws Throwable {
-        Object result = null;
+        Object result;
         try {
             System.out.println("@Before");
             result = invocation.proceed();
-        } catch (Throwable throwable) {
+        }
+        catch (Throwable throwable) {
             throwable.printStackTrace();
             System.out.println("@AfterThrowing");
             throw throwable;
-        } finally {
+        }
+        finally {
             System.out.println("@After");
         }
+
         System.out.println("@AfterReturning");
 
         return result;
