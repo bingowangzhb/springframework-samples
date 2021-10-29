@@ -1,22 +1,15 @@
 package com.wangzhb.spring.ioc.annotation.sample3;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 
 /**
- * Sample3Config
+ * Sample4Config
  *
- * @author wangzhb
- * @since 2020/8/9 22:48
- **/
+ * @author zhibin.wangzhb
+ * @since 2021/04/19 10:53
+ */
 @Configuration
-@Import({Dog.class, MyImportSelector.class})
+@ComponentScan(basePackages = "com.wangzhb.spring.ioc.annotation.sample4")
 public class Sample3Config {
-
-
-    @Bean
-    public MyImportDefinitionRegistrar myImportDefinitionRegistrar() {
-        return new MyImportDefinitionRegistrar();
-    }
 }
