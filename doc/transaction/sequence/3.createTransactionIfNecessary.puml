@@ -1,0 +1,34 @@
+@startuml
+participant TransactionInterceptor as A
+participant TransactionAspectSupport as B
+participant DelegatingTransactionAttribute as C
+participant AbstractPlatformTransactionManager as D
+participant DataSourceTransactionManager as E
+participant DataSourceTransactionObject as F
+participant TransactionSynchronizationManager as G
+participant TransactionSynchronizationUtils as H
+
+
+autonumber
+A -> B ++ : invokeWithinTransaction
+    B -> B ++ : createTransactionIfNecessary
+        B -> C ++ : new
+        return
+        B -> D ++ : getTransaction(TransactionDefinition)
+            D -> E ++ : doGetTransaction()
+                E -> F ++ : new DataSourceTransactionObject()
+                return
+                E -> E ++ : obtainDataSource()
+                    E -> E : getDataSource()
+                return
+                E -> G ++ : getResource(Object)
+                    G -> H ++ : unwrapResourceIfNecessary
+                    return
+                return
+
+            return
+        return
+    return
+return
+
+@enduml

@@ -1,0 +1,16 @@
+@startuml
+interface TransactionAnnotationParser {
+    parseTransactionAnnotation(AnnotatedElement) : TransactionAttribute
+}
+
+class SpringTransactionAnnotationParser implements TransactionAnnotationParser {
+    +parseTransactionAnnotation(AnnotatedElement) : TransactionAttribute
+}
+class Ejb3TransactionAnnotationParser implements TransactionAnnotationParser {
+    +parseTransactionAnnotation(AnnotatedElement) : TransactionAttribute
+}
+class JtaTransactionAnnotationParser implements TransactionAnnotationParser {
+    +parseTransactionAnnotation(AnnotatedElement) : TransactionAttribute
+}
+
+@enduml

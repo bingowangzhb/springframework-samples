@@ -1,0 +1,14 @@
+@startuml
+participant TransactionInterceptor as A
+participant TransactionAspectSupport as B
+participant DefaultListableBeanFactory as C
+
+A -> B ++ : invokeWithinTransaction
+    B -> B ++ : determineTransactionManager
+        B -> B : getTransactionManager
+        B -> C ++ : getBean(PlatformTransactionManager.class)
+        return
+    return
+return
+
+@enduml

@@ -1,0 +1,71 @@
+@startuml
+interface java.io.Flushable {
+   flush() : void
+}
+
+interface SavepointManager {
+    createSavepoint() : Object
+    rollbackToSavepoint(Object savepoint) : void
+    releaseSavepoint(Object savepoint) : void
+}
+
+interface TransactionStatus extends SavepointManager, java.io.Flushable {
+    isNewTransaction() : boolean
+    hasSavepoint() : boolean
+    setRollbackOnly() : void
+    isRollbackOnly() : boolean
+    flush() : void
+    isCompleted() : boolean
+}
+
+abstract class AbstractTransactionStatus implements TransactionStatus {
+    - rollbackOnly : boolean = false
+    - completed : boolean = false
+    - savepoint : Object
+
+    .. Implementation of SavepointManager ..
+    + createSavepoint() : Object
+    + rollbackToSavepoint(Object savepoint) : void
+    + releaseSavepoint(Object savepoint) : void
+
+    .. Method implemented in subclass..
+    # getSavepointManager() : SavepointManager
+}
+
+note right of AbstractTransactionStatus::createSavepoint
+方法内部调用了
+getSavepointManager().createSavepoint()
+getSavepointManager()需要子类实现
+其实真正的实现在抽象类JdbcTransactionObjectSupport
+其他两个类似
+end note
+
+class DefaultTransactionStatus extends AbstractTransactionStatus {
+    - transaction : Object
+    - newTransaction : boolean
+    - newSynchronization : boolean
+    - readOnly : boolean
+    - debug : boolean
+    - suspendedResources : Object
+
+    .. Constructor ..
+    + DefaultTransactionStatus(Object,boolean,boolean,\n boolean,boolean,boolean,Object)
+
+    + getTransaction() : Object
+    + hasTransaction() : boolean
+    + isNewTransaction() : boolean
+    + isGlobalRollbackOnly() : boolean
+    # getSavepointManager() : SavepointManager
+    + flush() : void
+
+
+    # getSavepointManager() : SavepointManager
+
+}
+
+class SimpleTransactionStatus extends AbstractTransactionStatus {
+    - newTransaction : boolean
+}
+
+
+@enduml

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<mapper namespace="com.wangzhb.w3c.MybatisXmlParseTest">
+<mapper namespace="com.bgw.w3c.MybatisXmlParseTest">
 james harden
     <sql id="blogColumns">
         id, name, author, content, create_time, update_time

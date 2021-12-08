@@ -1,0 +1,35 @@
+@startuml
+interface TransactionAttributeSource {
+    {abstract} getTransactionAttribute(Method, Class<?> targetClass) : TransactionAttribute
+}
+
+class CompositeTransaction\nAttributeSource implements TransactionAttributeSource {}
+
+abstract class AbstractFallbackTransactionAttributeSource implements TransactionAttributeSource {
+    - attributeCache : Map<Object, TransactionAttribute>
+    + getTransactionAttribute(Method, Class<?> targetClass) : TransactionAttribute
+    .. Template Methods ..
+    #{abstract}findTransactionAttribute(Class<?>) : TransactionAttribute
+    #{abstract}findTransactionAttribute(Method) : TransactionAttribute
+    #allowPublicMethodsOnly() : TransactionAttribute
+}
+
+class NameMatch\nTransactionAttributeSource implements TransactionAttributeSource {}
+
+class MethodMap\nTransactionAttributeSource implements TransactionAttributeSource, BeanClassLoaderAware, InitializingBean { }
+
+class MatchAlways\nTransactionAttributeSource implements TransactionAttributeSource {}
+
+class AnnotationTransactionAttributeSource extends AbstractFallbackTransactionAttributeSource {
+    - jta12Present : boolean
+    - ejb3Present : boolean
+    - publicMethodsOnly : boolean
+    - annotationParsers : Set<TransactionAnnotationParser>
+
+    # findTransactionAttribute(Class<?>) : TransactionAttribute
+    # findTransactionAttribute(Method) : TransactionAttribute
+}
+
+
+
+@enduml

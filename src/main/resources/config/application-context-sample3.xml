@@ -4,9 +4,9 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="beanA" class="com.wangzhb.spring.ioc.xml.sample3.BeanA">
+    <bean id="beanA" class="com.bgw.spring.ioc.xml.sample3.BeanA">
     </bean>
 
-    <bean id="beanB" class="com.wangzhb.spring.ioc.xml.sample3.BeanB">
+    <bean id="beanB" class="com.bgw.spring.ioc.xml.sample3.BeanB">
     </bean>
 </beans>

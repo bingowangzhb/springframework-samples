@@ -1,0 +1,98 @@
+@startuml
+interface PlatformTransactionManager {
+    {abstract} getTransaction(TransactionDefinition) : TransactionStatus
+    {abstract} commit(TransactionStatus) : void
+    {abstract} rollback(TransactionStatus) : void
+}
+
+abstract class AbstractPlatformTransactionManager implements PlatformTransactionManager, Serializable {
+    {static} SYNCHRONIZATION_ALWAYS : int = 0
+    {static} SYNCHRONIZATION_ON_ACTUAL_TRANSACTION : int = 1
+    {static} SYNCHRONIZATION_NEVER : int = 2
+
+    - processCommit(DefaultTransactionStatus) : void
+    - processRollback(DefaultTransactionStatus) : void
+    # invokeAfterCompletion(List<TransactionSynchronization>, int completionStatus)
+
+    .. Implementation of PlatformTransactionManager ..
+    + final getTransaction(TransactionDefinition) : TransactionStatus
+    + final commit(TransactionDefinition) : void
+    + final rollback(TransactionDefinition) : void
+
+    .. Template methods to be implemented in subclasses ..
+    # {abstract} doGetTransaction() : Object
+    # {abstract} isExistingTransaction(Object transaction) : boolean
+    # {abstract} doBegin(Object transaction, TransactionDefinition definition) : void
+    # {abstract} doSuspend(Object transaction) : Object
+    # {abstract} doResume(Object transaction, Object suspendedResources) : void
+    # {abstract} doCommit(DefaultTransactionStatus) : void
+    # {abstract} doRollback(DefaultTransactionStatus) : void
+
+
+}
+
+interface InitializingBean {
+    afterPropertiesSet() : void
+}
+
+interface ResourceTransactionManager extends PlatformTransactionManager {
+	getResourceFactory() : Object
+}
+
+class DataSourceTransactionManager extends AbstractPlatformTransactionManager implements ResourceTransactionManager, InitializingBean {
+    - dataSource : DataSource
+    + DataSourceTransactionManager()
+    + DataSourceTransactionManager(DataSource)
+
+    # doGetTransaction() : Object
+    # isExistingTransaction(Object transaction) : boolean
+    # doBegin(Object transaction, TransactionDefinition definition) : void
+    # doSuspend(Object transaction) : Object
+    # doResume(Object transaction, Object suspendedResources) : void
+    # doCommit(DefaultTransactionStatus) : void
+    # doRollback(DefaultTransactionStatus) : void
+}
+
+interface SavepointManager {
+    {abstract} createSavepoint() : Object
+    {abstract} rollbackToSavepoint(Object savepoint) : void
+    {abstract} releaseSavepoint(Object savepoint) : void
+}
+
+interface java.io.Flushable {
+   {abstract} flush() : void
+}
+
+interface SmartTransactionObject extends java.io.Flushable {
+    {abstract} isRollbackOnly() : boolean
+    {abstract} flush() : void
+}
+
+abstract class JdbcTransactionObjectSupport implements SavepointManager, SmartTransactionObject {
+    - connectionHolder : ConnectionHolder
+    .. Implementation of SavepointManager ..
+    + createSavepoint() : Object
+    + rollbackToSavepoint(Object savepoint) : void
+    + releaseSavepoint(Object savepoint) : void
+
+}
+
+class DataSourceTransactionObject extends JdbcTransactionObjectSupport {
+    - newConnectionHolder : boolean
+    - mustRestoreAutoCommit : boolean
+
+    .. Default Empty Constructor ..
+
+    .. Setter ..
+    + setSavepointAllowed(boolean) : void
+    + setConnectionHolder(ConnectionHolder, boolean) : void
+    .. Implementation of SmartTransactionObject ..
+    + isRollbackOnly() : boolean
+    + flush() : void
+}
+
+
+
+DataSourceTransactionManager +-- DataSourceTransactionObject
+
+@enduml

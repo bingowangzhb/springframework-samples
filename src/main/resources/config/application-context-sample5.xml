@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean class="com.wangzhb.spring.ioc.xml.sample5.InstantiationTracingBeanProcessor" />
+    <bean class="com.bgw.spring.ioc.xml.sample5.InstantiationTracingBeanProcessor" />
 
-    <bean id="sampleBean" class="com.wangzhb.spring.ioc.xml.sample5.SampleBean" />
+    <bean id="sampleBean" class="com.bgw.spring.ioc.xml.sample5.SampleBean" />
 </beans>

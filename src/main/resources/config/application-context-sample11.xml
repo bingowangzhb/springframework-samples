@@ -4,17 +4,17 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         https://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="person" name="person2,person3" class="com.wangzhb.spring.ioc.xml.sample11.Person" init-method="init"
+    <bean id="person" name="person2,person3" class="com.bgw.spring.ioc.xml.sample11.Person" init-method="init"
           destroy-method="destroy" lazy-init="false">
         <property name="name" value="bingo"/>
         <property name="age" value="33"/>
     </bean>
 
-    <bean class="com.wangzhb.spring.ioc.xml.sample11.ExampleBean" />
+    <bean class="com.bgw.spring.ioc.xml.sample11.ExampleBean" />
 
-    <bean id="clientService" class="com.wangzhb.spring.ioc.xml.sample11.ClientService" factory-method="createInstance"/>
+    <bean id="clientService" class="com.bgw.spring.ioc.xml.sample11.ClientService" factory-method="createInstance"/>
 
-    <bean id="defaultServiceLocator" class="com.wangzhb.spring.ioc.xml.sample11.DefaultServiceLocator" />
+    <bean id="defaultServiceLocator" class="com.bgw.spring.ioc.xml.sample11.DefaultServiceLocator" />
     <bean id="personService" factory-bean="defaultServiceLocator" factory-method="createPersonService"/>
     <bean id="accountService" factory-bean="defaultServiceLocator" factory-method="createAccountService"/>
 </beans>

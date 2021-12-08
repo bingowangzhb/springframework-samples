@@ -1,0 +1,80 @@
+@startuml
+interface TransactionDefinition {
+    + {static} PROPAGATION_REQUIRED : int = 0
+    + {static} PROPAGATION_SUPPORTS : int = 1
+    + {static} PROPAGATION_MANDATORY : int = 2
+    + {static} PROPAGATION_REQUIRES_NEW : int = 3
+    + {static} PROPAGATION_NOT_SUPPORTED : int = 4
+    + {static} PROPAGATION_NEVER : int = 5
+    + {static} PROPAGATION_NESTED : int = 6
+
+    + {static} ISOLATION_DEFAULT : int = -1
+    + {static} ISOLATION_READ_UNCOMMITTED : int = 1
+    + {static} ISOLATION_READ_COMMITTED : int = 2
+    + {static} ISOLATION_REPEATABLE_READ : int = 4
+    + {static} ISOLATION_SERIALIZABLE : int = 8
+
+    + {static} TIMEOUT_DEFAULT : int = -1
+
+    {abstract} getPropagationBehavior() : int
+    {abstract} getIsolationLevel() : int
+    {abstract} getTimeout() : int
+    {abstract} isReadOnly() : boolean
+    {abstract} getName() : String
+}
+
+interface TransactionAttribute extends TransactionDefinition {
+	{abstract} getQualifier() : String
+	{abstract} rollbackOn(Throwable ex) : boolean
+}
+
+class DefaultTransactionDefinition implements TransactionDefinition {
+    - propagationBehavior : int = PROPAGATION_REQUIRED
+    - isolationLevel : int = ISOLATION_DEFAULT
+    - timeout : int = TIMEOUT_DEFAULT
+    - readOnly : boolean = false
+    - name : String
+}
+
+interface InitializingBean {
+    {abstract} afterPropertiesSet() : void
+}
+
+interface TransactionOperations {
+    {abstract} execute(TransactionCallback<T> action) : T
+}
+
+class TransactionTemplate extends DefaultTransactionDefinition implements TransactionOperations, InitializingBean {
+	- transactionManager : PlatFormTransactionManager
+	.. Constructor ..
+    + TransactionTemplate()
+    + TransactionTemplate(PlatFormTransactionManager)
+    + TransactionTemplate(PlatFormTransactionManager, TransactionDefinition)
+
+    + execute(TransactionCallback<T> action) : T
+}
+
+class DefaultTransactionAttribute extends DefaultTransactionDefinition implements TransactionAttribute {
+    - qualifier : String
+    - descriptor : String
+
+    + rollbackOn(Throwable ex)) : boolean
+}
+
+class RuleBasedTransactionAttribute extends DefaultTransactionAttribute {
+    - rollbackRules : List<RollbackRuleAttribute>
+}
+
+class RollbackRuleAttribute {
+    + {static} ROLLBACK_ON_RUNTIME_EXCEPTIONS : RollbackRuleAttribute
+    - exceptionName : String
+
+    + RollbackRuleAttribute(Class<?>)
+    + RollbackRuleAttribute(String)
+
+    + rollbackOn(Throwable ex) : boolean
+}
+
+RuleBasedTransactionAttribute "1" *- "n" RollbackRuleAttribute
+
+@enduml

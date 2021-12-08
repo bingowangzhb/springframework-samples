@@ -1,0 +1,38 @@
+@startuml
+
+interface Advice {
+}
+interface Interceptor extends Advice {
+}
+interface MethodInterceptor extends Interceptor {
+    invoke(MethodInvocation) : Object
+}
+
+interface BeanFactoryAware {
+    setBeanFactory(BeanFactory) : void
+}
+
+interface InitializingBean {
+    afterPropertiesSet() : void
+}
+
+abstract class TransactionAspectSupport implements BeanFactoryAware, InitializingBean {
+    + {static} transactionInfoHolder : ThreadLocal<TransactionInfo>
+    # {static} currentTransactionInfo() : TransactionInfo
+    # {static} currentTransactionStatus() : TransactionStatus
+    - transactionManager : PlatformTransactionManager
+    - transactionAttributeSource : TransactionAttributeSource
+    - beanFactory : BeanFactory
+
+    # invokeWithinTransaction(Method, Class<?>, InvocationCallBack) : Object
+}
+
+class TransactionInterceptor extends TransactionAspectSupport implements MethodInterceptor, Serializable {
+    + TransactionInterceptor()
+    + TransactionInterceptor(PlatformTransactionManager, Properties)
+    + TransactionInterceptor(PlatformTransactionManager, TransactionAttributeSource)
+
+    + invoke(MethodInvocation) : Object
+}
+
+@enduml

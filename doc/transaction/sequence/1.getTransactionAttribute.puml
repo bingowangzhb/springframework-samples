@@ -1,0 +1,27 @@
+@startuml
+participant TransactionInterceptor as A
+participant TransactionAspectSupport as B
+participant "AbstractFallbackTransactionAttributeSource" as C
+participant "AnnotationTransactionAttributeSource" as D
+participant SpringTransactionAnnotationParser as E
+participant RuleBasedTransactionAttribute as F
+autonumber
+A -> B ++ : invokeWithinTransaction\n(Method,Class,InvocationCallback)
+    B -> C ++ : getTransactionAttribute(Method,Class)
+        C -> C ++ : computeTransactionAttribute(Method,Class)
+            C -> D ++ : findTransactionAttribute(Method)
+                D -> D ++ : determineTransactionAttribute(Method)
+                    D -> D ++ : *[for all annotationParsers]
+                        D -> E ++ : parseTransactionAnnotation(AnnotatedElement)
+                            E -> E ++ : parseTransactionAnnotation(AnnotationAttributes)
+                                E -> F ++ : new
+                                return
+                            return
+                        return
+                    return
+                return
+            return
+        return
+    return
+return
+@enduml

@@ -1,0 +1,23 @@
+@startuml
+interface Flushable {
+    flush() : void
+}
+interface TransactionSynchronization extends Flushable {
+    STATUS_COMMITTED : int = 0
+    STATUS_ROLLED_BACK : int = 1
+    STATUS_UNKNOWN : int = 2
+
+    suspend() : void
+    resume() : void
+    flush() : void
+    beforeCommit(boolean readOnly) : void
+    beforeCompletion() : void
+    afterCommit() : void
+    afterCompletion(int status) : void
+}
+
+abstract class TransactionSynchronizationAdapter implements TransactionSynchronization, Ordered {
+    
+}
+
+@enduml

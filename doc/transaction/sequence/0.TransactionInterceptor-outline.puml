@@ -1,0 +1,23 @@
+@startuml
+actor Controller as A
+participant TransactionInterceptor as C
+participant TransactionAspectSupport as D
+participant AnnotationTransactionAttributeSource as E
+participant BizService as F
+
+
+A -> C ++ : invoke(MethodInvocation)
+    C -> D ++ : invokeWithinTransaction
+        D -> E ++ : 1.getTransactionAttribute
+        return
+        D -> D : 2.determineTransactionManager
+        D -> D : 3.createTransactionIfNecessary
+        D -> F ++ : bizMethod(@Transactional)
+        return
+        D -> D : 4.completeTransactionAfterThrowing
+        D -> D : 5.cleanupTransactionInfo
+        D -> D : 6.commitTransactionAfterReturning
+    return
+return
+
+@enduml
