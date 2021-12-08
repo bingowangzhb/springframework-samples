@@ -29,9 +29,8 @@ public class UserService {
     private JdbcTemplate jdbcTemplate;
 
     public void saveWithTransactionTemplate() {
-
         transactionTemplate.execute(transactionStatus -> {
-            String sql = "insert into person(name, age) values ('james', 22)";
+            String sql = "insert into `test`.user(name, age) values ('james', 22)";
             jdbcTemplate.update(sql);
             // System.out.println(1 / 0);
             return null;
@@ -51,7 +50,7 @@ public class UserService {
 
         TransactionStatus transactionStatus = transactionManager.getTransaction(transactionDefinition);
         try {
-            String sql = "insert into person(name, age) values ('james2', 23)";
+            String sql = "insert into `test`.user(name, age) values ('james2', 23)";
             jdbcTemplate.update(sql);
             // System.out.println(1 / 0);
             transactionManager.commit(transactionStatus);

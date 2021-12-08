@@ -13,19 +13,19 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since 2020/8/27 15:01
  **/
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {Sample2MyDataSourceConfig.class})
+@ContextConfiguration(classes = {Sample2Config.class})
 public class Sample2Test {
 
     @Autowired
-    private PersonService personService;
+    private UserService userService;
 
     @Test
     public void test1() {
-        personService.saveWithTransactionTemplate();
+        userService.saveWithTransactionTemplate();
     }
 
     @Test
     public void test2() {
-        personService.saveWithTransactionManager();
+        userService.saveWithTransactionManager();
     }
 }

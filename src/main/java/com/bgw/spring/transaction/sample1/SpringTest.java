@@ -1,6 +1,6 @@
 package com.bgw.spring.transaction.sample1;
 
-import com.bgw.spring.transaction.sample1.service.PersonService;
+import com.bgw.spring.transaction.sample3.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ import javax.sql.DataSource;
  * @since 2020/8/27 10:28
  **/
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {Sample1MyDataSourceConfig.class})
+@ContextConfiguration(classes = {Sample1Config.class})
 public class SpringTest {
 
     @Autowired
@@ -31,7 +31,7 @@ public class SpringTest {
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
-    private PersonService personService;
+    private UserService userService;
 
     @Test
     public void test1() throws Exception {
@@ -43,7 +43,7 @@ public class SpringTest {
 
     @Test
     public void test2() {
-        personService.save(null);
+        userService.save(null);
     }
 
 }

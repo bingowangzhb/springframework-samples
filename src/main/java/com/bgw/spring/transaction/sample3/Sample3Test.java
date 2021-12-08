@@ -1,6 +1,6 @@
 package com.bgw.spring.transaction.sample3;
 
-import com.bgw.spring.transaction.Person;
+import com.bgw.spring.transaction.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,27 +16,27 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @since 2020/8/27 17:24
  **/
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {Sample3MyDataSourceConfig.class})
+@ContextConfiguration(classes = {Sample3Config.class})
 public class Sample3Test {
 
     @Autowired
-    private PersonService personService;
+    private UserService userService;
 
     @Test
     public void test1() {
-        System.out.println("personService.getClass() = " + personService.getClass());
-        Person person = new Person();
-        person.setName("zagg");
-        person.setAge(24);
-        personService.save(person);
+        System.out.println("userService.getClass() = " + userService.getClass());
+        User user = new User();
+        user.setName("zagg");
+        user.setAge(24);
+        userService.save(user);
     }
 
     @Test
     public void test2() {
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Sample3MyDataSourceConfig.class);
-        PersonService personService = (PersonService) applicationContext.getBean("personService");
-        System.out.println("personService.getClass() = " + personService.getClass());
-        personService.save(null);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Sample3Config.class);
+        UserService userService = (UserService) applicationContext.getBean("userServiceImpl");
+        System.out.println("userService.getClass() = " + userService.getClass());
+        userService.save(null);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.bgw.spring.transaction.sample3;
 
-import com.bgw.spring.transaction.Person;
 import com.bgw.spring.transaction.User;
 
 /**
@@ -13,7 +12,7 @@ public interface UserService {
     /**
      * save
      *
-     * @param person person
+     * @param user user
      */
     void save(User user);
 

@@ -11,7 +11,7 @@ import com.bgw.spring.transaction.User;
 public interface UserService {
     /**
      * save()
-     * @param person person
+     * @param user user
      */
     void save(User user);
 
