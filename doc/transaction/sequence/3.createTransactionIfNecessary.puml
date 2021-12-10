@@ -7,28 +7,74 @@ participant DataSourceTransactionManager as E
 participant DataSourceTransactionObject as F
 participant TransactionSynchronizationManager as G
 participant TransactionSynchronizationUtils as H
+participant ConnectionHolder as I
+participant DataSourceUtils as J
+participant Statement as K
+participant TransactionInfo as L
 
 
 autonumber
 A -> B ++ : invokeWithinTransaction
     B -> B ++ : createTransactionIfNecessary
         B -> C ++ : new
-        return
+        return DelegatingTransactionAttribute
         B -> D ++ : getTransaction(TransactionDefinition)
             D -> E ++ : doGetTransaction()
                 E -> F ++ : new DataSourceTransactionObject()
-                return
+                return DataSourceTransactionObject
                 E -> E ++ : obtainDataSource()
                     E -> E : getDataSource()
-                return
-                E -> G ++ : getResource(Object)
+                return DataSource
+                E -> G ++ : getResource(Object:DataSource)
                     G -> H ++ : unwrapResourceIfNecessary
+                    return
+                return ConnectionHolder :这里返回的实例为null，\n因为是从事务同步管理器那里获取，先bindResource后getResource
+                E -> F ++ : setConnectionHolder
+                return
+            return DataSourceTransactionObject
+
+            D -> D ++ : newTransactionStatus
+            return DefaultTransactionStatus
+
+            D -> E ++ : doBegin(Object:DataSourceTransactionObject,TransactionDefinition)
+                E -> I ++ : new
+                return ConnectionHolder
+
+                E -> F ++ : setConnectionHolder(ConnectionHolder, true)
+                return
+                E -> J ++ : prepareConnectionForTransaction
+                return previousIsolationLevel
+
+                E -> F ++ : setPreviousIsolationLevel
+                return
+                E -> E ++ : prepareTransactionalConnection
+                    E -> K ++ : isEnforceReadOnly() && definition.isReadOnly() => executeUpdate("SET TRANSACTION READ ONLY")
                     return
                 return
 
+                E -> G ++ : txObject.isNewConnectionHolder() ? (Object:DataSource, Object:ConnectionHolder)
+                return
             return
-        return
-    return
-return
+
+            D -> D ++ : prepareSynchronization
+                D -> G ++ : setActualTransactionActive
+                return
+                D -> G ++ : setCurrentTransactionIsolationLevel
+                return
+                D -> G ++ : setCurrentTransactionReadOnly
+                return
+                D -> G ++ : setCurrentTransactionName
+                return
+                D -> G ++ : initSynchronization
+                return
+            return
+        return DefaultTransactionStatus
+
+        B -> B ++ : prepareTransactionInfo
+            B -> L ++ : new(PlatformTransactionManager, TransactionAttribute, String)
+            return TransactionInfo
+        return TransactionInfo
+    return TransactionInfo
+return TransactionInfo
 
 @enduml

@@ -17,7 +17,7 @@ interface TransactionSynchronization extends Flushable {
 }
 
 abstract class TransactionSynchronizationAdapter implements TransactionSynchronization, Ordered {
-    
+
 }
 
 @enduml

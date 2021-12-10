@@ -1,0 +1,34 @@
+@startuml
+participant MapperMethod as A
+participant SqlSessionTemplate as B
+participant SqlSessionInterceptor as C
+participant SqlSessionUtils as D
+participant TransactionSynchronizationManager as E
+participant TransactionSynchronizationUtils as F
+participant DefaultSqlSessionFactory as G
+participant BizService as H
+
+autonumber
+
+A -> B ++ : selectList
+    B -> C ++ : invoke(proxy,method,args)
+        C -> D ++ : getSqlSession
+            D -> E ++ : getResource(Object:SqlSessionFactory)
+                E -> F ++ : unwrapResourceIfNecessary
+                return
+                E -> E : doGetResource
+                E -> E : sessionHolder(ExecutorType, SqlSessionHolder)
+                E -> G ++ : openSession(ExecutorType)
+                return DefaultSqlSession
+                E -> E ++ : registerSessionHolder
+                return
+            return SqlSessionHolder
+        return DefaultSqlSession
+        C -> H ++ : invokeBizMethod : biz()
+        return resultOfBiz
+        C -> G ++ : commit(true)
+        return
+    return resultOfBiz
+return resultOfBiz
+
+@enduml
