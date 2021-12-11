@@ -1,0 +1,27 @@
+@startuml
+
+abstract class TransactionSynchronizationManager {
+    - {static} resources : ThreadLocal<Map<Object, Object>>
+    - {static} synchronizations : ThreadLocal<Set<TransactionSynchronization>>
+    - {static} currentTransactionName : ThreadLocal<String>
+    - {static} currentTransactionReadOnly : ThreadLocal<Boolean>
+    - {static} currentTransactionIsolationLevel : ThreadLocal<Integer>
+    - {static} actualTransactionAction : ThreadLocal<Boolean>
+
+    ..Management of transaction-associated resources..
+    + {static} getResourceMap() : Map<Object, Object>
+    + {static} hasResource(Object key) : boolean
+    + {static} getResource(Object key) : Object
+    + {static} bindResource(Object key, Object value) : void
+    + {static} unbindResource(Object key) : Object
+
+    ..Management of transaction synchronizations..
+    + {static} isSynchronizationActive() : boolean
+    + {static} initSynchronization() : void
+    + {static} registerSynchronization(TransactionSynchronization) : void
+    + {static} getSynchronizations() : List<TransactionSynchronization>
+    + {static} clearSynchronization() : void
+
+    + {static} clear() : void
+}
+@enduml

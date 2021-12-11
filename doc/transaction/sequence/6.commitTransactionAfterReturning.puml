@@ -1,11 +1,26 @@
 @startuml
-'https://plantuml.com/sequence-diagram
+participant TransactionInterceptor as A
+participant TransactionAspectSupport as B
+participant AbstractPlatformTransactionManager as C
+participant DataSourceTransactionManager as D
 
 autonumber
+A -> B ++ : invokeWithinTransaction\n(Method,Class,InvocationCallback)
+    B -> B ++ : commitTransactionAfterReturning(TransactionInfo)
+        B -> C ++ : commit(TransactionStatus);
+            C -> C ++ : processCommit(DefaultTransactionStatus)
+                C -> C : prepareForCommit(DefaultTransactionStatus)
+                C -> C : triggerBeforeCommit(DefaultTransactionStatus)
+                C -> C : triggerBeforeCompletion(DefaultTransactionStatus)
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+                C -> D ++ : doCommit(DefaultTransactionStatus)
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+                return
+                C -> C : triggerAfterCommit(DefaultTransactionStatus)
+                C -> C : triggerAfterCompletion(DefaultTransactionStatus, int completionStatus)
+                C -> C : cleanupAfterCompletion(DefaultTransactionStatus)
+            return
+        return
+    return
+return
 @enduml
