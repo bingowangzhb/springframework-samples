@@ -1,0 +1,1 @@
+com.bgw.spi.HelloService=com.bgw.spi.DefaultHellServiceImpl,com.bgw.spi.ChineseHelloServiceImpl
