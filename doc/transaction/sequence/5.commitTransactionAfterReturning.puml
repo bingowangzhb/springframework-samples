@@ -3,6 +3,10 @@ participant TransactionInterceptor as A
 participant TransactionAspectSupport as B
 participant AbstractPlatformTransactionManager as C
 participant DataSourceTransactionManager as D
+participant DefaultTransactionStatus as E
+participant DataSourceTransactionObject as F
+participant ConnectionHolder as G
+participant Connection as H
 
 autonumber
 A -> B ++ : invokeWithinTransaction\n(Method,Class,InvocationCallback)
@@ -14,11 +18,20 @@ A -> B ++ : invokeWithinTransaction\n(Method,Class,InvocationCallback)
                 C -> C : triggerBeforeCompletion(DefaultTransactionStatus)
 
                 C -> D ++ : doCommit(DefaultTransactionStatus)
-
+                    D -> E ++ : getTransaction
+                    return DataSourceTransactionObject
+                    E -> F ++ : getConnectionHolder()
+                    return ConnectionHolder
+                    F -> G ++ : getConnection()
+                    return Connection
+                    D -> H ++ : commit()
+                    return
                 return
                 C -> C : triggerAfterCommit(DefaultTransactionStatus)
                 C -> C : triggerAfterCompletion(DefaultTransactionStatus, int completionStatus)
-                C -> C : cleanupAfterCompletion(DefaultTransactionStatus)
+                C -> C ++ : cleanupAfterCompletion(DefaultTransactionStatus)
+
+                return
             return
         return
     return

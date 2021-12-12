@@ -1,0 +1,50 @@
+@startuml
+interface Aware{}
+
+interface BeanNameAware extends Aware{
+
+}
+interface BeanFactoryAware extends Aware{
+
+}
+interface BeanClassLoaderAware extends Aware{
+
+}
+interface BeanPostProcessor{
+
+}
+interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
+
+}
+interface SmartInstantiationAwareBeanPostProcessor extends InstantiationAwareBeanPostProcessor {
+
+}
+
+class ProxyConfig{
+
+}
+class ProxyProcessorSupport extends ProxyConfig implements BeanClassLoaderAware,AopInfrastructure,Ordered{
+
+}
+abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport implements BeanFactoryAware, SmartInstantiationAwareBeanPostProcessor {
+
+}
+class BeanNameAutoProxyCreator extends AbstractAutoProxyCreator {}
+abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyCreator {
+
+}
+
+
+class DefaultAdvisorAutoProxyCreator extends AbstractAdvisorAutoProxyCreator implements BeanNameAware {
+
+}
+class InfrastructureAutoProxyCreator extends AbstractAdvisorAutoProxyCreator {
+
+}
+
+class AspectJAwareAdvisorAutoProxyCreator extends AbstractAdvisorAutoProxyCreator {
+
+}
+class AnnotationAwareAspectJAutoProxyCreator extends AspectJAwareAdvisorAutoProxyCreator {
+}
+@enduml
