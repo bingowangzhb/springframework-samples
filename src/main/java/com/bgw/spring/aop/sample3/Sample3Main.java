@@ -14,7 +14,7 @@ import org.springframework.aop.framework.ProxyFactoryBean;
 public class Sample3Main {
 
     public static void main(String[] args) {
-        HelloService helloService = new HelloServicDebugInterceptoreImpl();
+        HelloService helloService = new HelloServiceImpl();
         ProxyFactory proxyFactory = new ProxyFactory(helloService);
 
         proxyFactory.addAdvice(new HelloServiceBeforeAdvice01());
