@@ -15,7 +15,6 @@ public class Sample2Main {
     public static void main(String[] args) {
 
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(Sample2AopConfig.class);
-
         BarService barService = (BarService) applicationContext.getBean("barService");
 
         // proxyTargetClass = false 默认 Jdk动态代理

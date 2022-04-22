@@ -1,0 +1,14 @@
+@startuml
+participant DependencyDescriptor as S
+participant AbstractBeanFactory as A
+participant DefaultSingletonBeanRegistry as B
+
+S -> A ++ : getBean
+    A -> A ++ : doGetBean
+        A -> B ++ : getSingleton(beanName,true)
+            note over B : 此时已经把bean放入了二级缓存earlySingletonObjects中，\n这里可以从二级缓存中拿到返回就可以了
+        return
+    return
+return
+
+@enduml

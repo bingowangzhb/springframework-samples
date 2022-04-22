@@ -23,7 +23,7 @@ interface SmartInstantiationAwareBeanPostProcessor extends InstantiationAwareBea
 class ProxyConfig{
 
 }
-class ProxyProcessorSupport extends ProxyConfig implements BeanClassLoaderAware,AopInfrastructure,Ordered{
+class ProxyProcessorSupport extends ProxyConfig implements BeanClassLoaderAware,AopInfrastructureBean,Ordered{
 
 }
 abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport implements BeanFactoryAware, SmartInstantiationAwareBeanPostProcessor {

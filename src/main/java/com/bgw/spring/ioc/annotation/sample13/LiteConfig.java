@@ -18,8 +18,8 @@ public class LiteConfig {
     @Bean
     public String lb(LiteBean liteBean) {
 
-        System.out.println("liteBean = " + liteBean().hashCode());
-        System.out.println("liteBean = " + liteBean().hashCode());
+        System.out.println("liteBean.hashCode = " + liteBean().hashCode());
+        System.out.println("liteBean.hashCode = " + liteBean().hashCode());
         return "lb";
     }
 }

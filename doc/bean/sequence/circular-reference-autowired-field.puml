@@ -1,0 +1,45 @@
+@startuml
+actor User as User
+participant AbstractBeanFactory as A
+participant DefaultSingletonBeanRegistry as B
+participant ObjectFactory as C
+participant AbstractAutowireCapableBeanFactory as D
+participant AutowiredAnnotationBeanProcessor as E
+participant InjectMetadata as F
+participant AutowiredFieldElement as G
+participant DefaultListableBeanFactory as H
+participant DependencyDescriptor as I
+User -> A ++ : getBean
+    A -> A ++ : doGetBean
+        A -> B ++ : getSingleton(beanName,true)
+            B -> C ++ : getObject()
+                note over C: AbstractAutowireCapableBeanFactory#createBean
+                C -> D ++ : doCreateBean
+                    D -> D : createBeanInstance
+                    D -> B ++ : addSingletonFactory(beanName, getEarlyBeanReference)
+                    return
+                    D -> D ++ : populateBean
+                        D -> E ++ : postProcessProperties
+                            E -> F ++ : inject
+                                F -> G ++ : inject
+                                    G -> H ++ : resolveDependency
+                                        H -> H ++ : doResolveDependency
+                                            H -> H : findAutowireCandidates
+                                            H -> I ++ : resolveCandidate
+                                              I -> A ++ : getBean
+                                              return
+                                            return
+                                        return
+                                    return
+                                    G -> G : 反射 field.set(obj,val)
+                                return
+                            return
+                        return
+                    return
+                    D -> D : initializingBean
+                return
+            return
+        return
+    return
+return
+@enduml

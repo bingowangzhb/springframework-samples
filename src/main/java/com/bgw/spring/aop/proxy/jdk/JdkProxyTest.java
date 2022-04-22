@@ -34,9 +34,9 @@ public class JdkProxyTest {
 
         // []
         System.out.println("HelloService.class.getInterfaces() = " + Arrays.toString(HelloService.class.getInterfaces()));
-        // [interface com.bgw.spring.aop.common.HelloService]
+        // [interface com.bgw.spring.aop.contract.HelloService]
         System.out.println("HelloServiceImpl.class.getInterfaces() = " + Arrays.toString(HelloServiceImpl.class.getInterfaces()));
-        // [interface com.bgw.spring.aop.common.HelloService]
+        // [interface com.bgw.spring.aop.contract.HelloService]
         System.out.println("helloService.getClass().getInterfaces() = " + Arrays.toString(helloService.getClass().getInterfaces()));
 
 

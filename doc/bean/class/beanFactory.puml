@@ -1,0 +1,203 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface AliasRegistry {
+	registerAlias(String, String): void
+	removeAlias(String alias): void
+	isAlias(String name): boolean
+	getAliases(String name): String[]
+}
+
+interface BeanFactory {
+    {static} FACTORY_BEAN_PREFIX = "&"
+
+    getBean(String):Object
+    getBean(Class<T> requiredType): T
+    containsBean(String):boolean
+}
+
+interface ListableBeanFactory extends BeanFactory {
+    getBeanNamesForType(Class<?>):String[]
+    getBeanDefinitionNames():String[]
+}
+
+interface AutowireCapableBeanFactory extends BeanFactory {
+    {static} AUTOWIRE_NO: int=0
+    {static} AUTOWIRE_BY_NAME: int=1
+    {static} AUTOWIRE_BY_TYPE: int=2
+    {static} AUTOWIRE_CONSTRUCTOR: int=3
+
+    <T> createBean(Class<T>): T
+    applyBeanPostProcessorsBeforeInitialization(Object, String): Object
+    applyBeanPostProcessorsAfterInitialization(Object, String): Object
+    resolveDependency(DependencyDescriptor, String, Set<String>, TypeConverter): Object
+}
+
+interface HierarchicalBeanFactory extends BeanFactory {
+    getParentBeanFactory():BeanFactory
+    containsLocalBean(String name):boolean
+}
+
+interface ConfigurableBeanFactory extends HierarchicalBeanFactory,SingletonBeanRegistry {
+    {static}SCOPE_SINGLETON: String="singleton"
+    {static}SCOPE_PROTOTYPE: String="prototype"
+
+    setParentBeanFactory(BeanFactory): void
+    setBeanClassLoader(ClassLoader): void
+    getBeanClassLoader(): ClassLoader
+    setConversionService(ConversionService): void
+    getConversionService(): ConversionService
+    setTypeConverter(TypeConverter): void
+    getTypeConverter(): TypeConverter
+    getMergedBeanDefinition(String): BeanDefinition
+    isFactoryBean(String): boolean
+    setCurrentlyInCreation(String, boolean): void
+    isCurrentlyInCreation(String): boolean
+
+}
+
+interface ConfigurableListableBeanFactory extends ListableBeanFactory, AutowireCapableBeanFactory, ConfigurableBeanFactory {
+    ignoreDependencyType(Class<?>):void
+    ignoreDependencyInterface((Class<?>):void
+    isAutowireCandidate(String, DependencyDescriptor): boolean
+    getBeanDefinition(String): BeanDefinition
+    preInstantiateSingletons(): void
+}
+
+class SimpleAliasRegistry implements AliasRegistry {
+    registerAlias(String, String): void
+	removeAlias(String alias): void
+	isAlias(String name): boolean
+	getAliases(String name): String[]
+}
+
+interface SingletonBeanRegistry {
+	registerSingleton(String, Object): void
+	getSingleton(String beanName): Object
+	containsSingleton(String beanName): boolean
+	getSingletonNames(): String[]
+	getSingletonCount(): int
+	getSingletonMutex(): Object
+}
+
+class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements SingletonBeanRegistry {
+    - singletonsCurrentlyInCreation: Set<String>
+    - singletonObjects: ConcurrentHashMap<String, Object>
+    - earlySingletonObjects: HashMap<String, Object>
+    - singletonFactories: HashMap<String, ObjectFactory<?>>
+    - singletonsCurrentlyInCreation: Set<String>
+    - inCreationCheckExclusions: Set<String>
+
+    # addSingleton(String, Object): void
+    # addSingletonFactory(String, ObjectFactory<?>): void
+    # getSingleton(String, boolean allowEarlyReference): Object
+    # getSingleton(String, ObjectFactory<?>): Object
+    + isCurrentlyInCreation(String): boolean
+    + isSingletonCurrentlyInCreation(String): boolean
+    # beforeSingletonCreation(String): void
+    # afterSingletonCreation(String): void
+
+    + getSingletonMutex(): Object
+}
+
+
+abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanRegistry {
+
+}
+
+abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport implements ConfigurableBeanFactory {
+    - parentBeanFactory: BeanFactory
+    - beanClassLoader: ClassLoader
+    - conversionService: ConversionService
+    - typeConverter: TypeConverter
+    - beanPostProcessors: CopyOnWriteArrayList<BeanPostProcessor>
+    - hasInstantiationAwareBeanPostProcessors: boolean
+    - hasDestructionAwareBeanPostProcessors: boolean
+
+    .. Implementation of BeanFactory ..
+    + getBean(String name): Object
+    + getBean(String name, Object... args): Object
+    + getBean(String name, Class<T> requiredType): T
+    + getBean(String name, Class<T> requiredType, Object... args): T
+    + containsBean(String): boolean
+
+    .. name, requiredType, args, typeCheckOnly ..
+    # <T> doGetBean(String, Class<T>, Object[], boolean): T
+
+    .. Implementation of HierarchicalBeanFactory ..
+    + getParentBeanFactory(): BeanFactory
+    + containsLocalBean(String): boolean
+    .. Implementation of ConfigurableBeanFactory ..
+    + setParentBeanFactory(BeanFactory): void
+    + setBeanClassLoader(ClassLoader): void
+    + getBeanClassLoader(): ClassLoader
+    + setConversionService(ConversionService): void
+    + getConversionService(): ConversionService
+    + setTypeConverter(TypeConverter): void
+    + getTypeConverter(): TypeConverter
+    .. Implementation of Methods ..
+    # transformedBeanName(String): String
+    # originalBeanName(String): String
+    # initBeanWrapper(BeanWrapper): void
+
+}
+
+abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
+ - instantiationStrategy: CglibSubclassingInstantiationStrategy
+ - allowCircularReferences: boolean = true
+ - ignoredDependencyTypes: HashSet<Class<?>>
+ - ignoredDependencyInterfaces: HashSet<Class<?>>
+ - currentlyCreatedBean: NamedThreadLocal<String>
+ - factoryBeanInstanceCache: ConcurrentMap<String, BeanWrapper>
+ - factoryMethodCandidateCache: ConcurrentMap<Class<?>, Method[]>
+
+ .. 创建组装外部bean实例的通用方法..
+ + createBean(Class<T> beanClass)
+ + autowireBean(Object existingBean)
+ + configureBean(Object existingBean, String beanName)
+ .. 对bean生命周期细化的特定方法 ..
+ + createBean(Class<?> beanClass, int autowireMode, boolean dependencyCheck): Object
+ + autowire(Class<?> beanClass, int autowireMode, boolean dependencyCheck): Object
+ + autowireBeanProperties(Object existingBean, int autowireMode, boolean dependencyCheck): void
+
+ + applyBeanPostProcessorsBeforeInitialization(Object existingBean, String beanName): Object
+ + applyBeanPostProcessorsAfterInitialization(Object existingBean, String beanName): Object
+
+ .. Resolve Dependency ..
+ + resolveBeanByName(String name, DependencyDescriptor): Object
+ + resolveDependency(DependencyDescriptor, @Nullable String requestingBeanName): Object
+
+ .. AbstractBeanFactory 模板方法 ..
+ # createBean(String beanName, RootBeanDefinition mbd, Object[] args): Object
+ # doCreateBean(String beanName, RootBeanDefinition mbd, Object[] args): Object
+  # createBeanInstance(String beanName, RootBeanDefinition, Object[] args): Object
+
+ # getEarlyBeanReference(String beanName, RootBeanDefinition mbd, Object bean): Object
+ # resolveBeforeInstantiation(String beanName, RootBeanDefinition mbd): Object
+ # applyBeanPostProcessorsBeforeInstantiation(Class<?> beanClass, String beanName): Object
+
+ # determineConstructorsFromBeanPostProcessors(Class<?> beanClass, String beanName): Constructor<?>[]
+
+ # instantiateBean(String beanName, RootBeanDefinition): BeanWrapper
+ # instantiateUsingFactoryMethod(String beanName, RootBeanDefinition, Object[] explicitArgs): BeanWrapper
+
+ # autowireConstructor(String, RootBeanDefinition, Constructor<?>[], Object[] explicitArgs): BeanWrapper
+ # autowireByName(String, AbstractBeanDefinition, BeanWrapper, MutablePropertyValues): void
+ # autowireByType(String, AbstractBeanDefinition, BeanWrapper, MutablePropertyValues): void
+ # applyPropertyValues(String, AbstractBeanDefinition, BeanWrapper, PropertyValues): void
+
+ # populateBean(String beanName, RootBeanDefinition mbd, BeanWrapper bw): void
+ # initializeBean(String beanName, Object bean, RootBeanDefinition mbd): Object
+ # invokeAwareMethods(String beanName, Object bean): void
+ # invokeInitMethods(String beanName, Object bean, RootBeanDefinition mbd): void
+ # invokeCustomInitMethod(String beanName, Object bean, RootBeanDefinition mbd): void
+
+}
+
+
+class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements ConfigurableListableBeanFactory, BeanDefinitionRegistry {
+
+}
+
+
+@enduml

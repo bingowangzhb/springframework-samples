@@ -3,7 +3,6 @@ package com.bgw.spring.aop.sample3;
 import com.bgw.spring.aop.common.HelloService;
 import com.bgw.spring.aop.common.HelloServiceImpl;
 import org.springframework.aop.framework.ProxyFactory;
-import org.springframework.aop.framework.ProxyFactoryBean;
 
 /**
  * Sample3Main

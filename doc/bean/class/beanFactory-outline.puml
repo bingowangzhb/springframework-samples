@@ -1,0 +1,26 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface ListableBeanFactory extends BeanFactory {}
+
+interface AutowireCapableBeanFactory extends BeanFactory {}
+
+interface HierarchicalBeanFactory extends BeanFactory {}
+
+interface ConfigurableBeanFactory extends HierarchicalBeanFactory,SingletonBeanRegistry {}
+
+interface ConfigurableListableBeanFactory extends ListableBeanFactory, AutowireCapableBeanFactory, ConfigurableBeanFactory {}
+
+class SimpleAliasRegistry implements AliasRegistry {}
+
+class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements SingletonBeanRegistry {}
+
+abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanRegistry {}
+
+abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport implements ConfigurableBeanFactory {}
+
+abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {}
+
+class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFactory implements ConfigurableListableBeanFactory, BeanDefinitionRegistry {}
+
+@enduml

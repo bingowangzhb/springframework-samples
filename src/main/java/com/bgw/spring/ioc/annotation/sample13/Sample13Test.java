@@ -14,7 +14,7 @@ public class Sample13Test {
 
         ApplicationContext context = new AnnotationConfigApplicationContext(Sample13Config.class);
 
-        LiteBean liteBean = (LiteBean) context.getBean("liteBean");
-        System.out.println("liteBean.hashCode() = " + liteBean.hashCode());
+        //LiteBean liteBean = (LiteBean) context.getBean("liteBean");
+        //System.out.println("liteBean.hashCode() = " + liteBean.hashCode());
     }
 }

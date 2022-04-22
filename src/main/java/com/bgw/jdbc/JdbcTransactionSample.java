@@ -11,8 +11,6 @@ import java.sql.SQLException;
  * @since 2021/10/14 15:01
  */
 public class JdbcTransactionSample {
-
-
     public static void main(String[] args) {
         String url = "jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8&useSSL=false&useServerPrepStmts=true&cachePrepStmts=true";
         String username = "root";

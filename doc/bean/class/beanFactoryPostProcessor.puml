@@ -1,0 +1,29 @@
+@startuml
+interface BeanFactoryPostProcessor {
+	postProcessBeanFactory(ConfigurableListableBeanFactory):void
+}
+
+interface BeanDefinitionRegistryPostProcessor extends BeanFactoryPostProcessor {
+    postProcessBeanDefinitionRegistry(BeanDefinitionRegistry):void
+}
+
+class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPostProcessor, PriorityOrdered, ResourceLoaderAware, EnvironmentAware {
+
+}
+
+abstract class PropertiesLoaderSupport {}
+
+abstract class PropertyResourceConfigurer extends PropertiesLoaderSupport implements BeanFactoryPostProcessor, PriorityOrdered {
+
+}
+
+abstract class PlaceholderConfigurerSupport extends PropertyResourceConfigurer implements BeanNameAware, BeanFactoryAware {
+}
+
+class PropertyPlaceholderConfigurer extends PlaceholderConfigurerSupport {}
+
+class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerSupport implements EnvironmentAware {}
+
+class PropertyOverrideConfigurer extends PropertyResourceConfigurer {}
+
+@enduml

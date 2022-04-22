@@ -1,0 +1,51 @@
+@startuml
+
+interface Servlet {
+    init(ServletConfig config) : void
+    getServletConfig() : ServletConfig
+    service(ServletRequest req, ServletResponse res) : void
+    getServletInfo() : String
+    destroy() : void
+}
+
+interface ServletConfig {
+    getServletName() : String
+    getServletContext() : ServletContext
+    getInitParameter(String name) : String
+    getInitParameterNames() : Enumeration<String>
+}
+
+interface ServletRequest {
+
+}
+interface ServletResponse {
+
+}
+
+interface HttpServletRequest extends ServletRequest {}
+interface HttpServletResponse extends ServletResponse {}
+
+abstract class GenericServlet implements Servlet, ServletConfig {
+    + {abstract} service(ServletRequest req, ServletResponse res) : void
+}
+
+abstract class HttpServlet extends GenericServlet {
+    + service(ServletRequest req, ServletResponse res) : void
+    # service(HttpServletRequest req, HttpServletResponse resp) : void
+}
+
+class ServletRequestWrapper implements ServletRequest {
+    - request : ServletRequest
+}
+class HttpServletRequestWrapper extends ServletRequestWrapper implements HttpServletRequest {
+
+}
+
+class ServletResponseWrapper implements ServletResponse {
+    - response : ServletResponse
+}
+
+class HttpServletResponseWrapper extends ServletResponseWrapper implements HttpServletResponse {
+
+}
+@enduml

@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
  * @author bgw
  * @since 2020/9/6 15:07
  **/
-@Service("fooService")
 public class FooServiceImpl implements FooService {
 
-    @Autowired
     private BarService barService;
 
     @Override

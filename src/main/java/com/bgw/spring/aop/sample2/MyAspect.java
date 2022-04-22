@@ -6,6 +6,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.stereotype.Component;
 
 /**
  * MyAspect
@@ -13,6 +14,7 @@ import org.aspectj.lang.reflect.MethodSignature;
  * @author bgw
  * @since 2020/8/9 23:14
  **/
+@Component
 @Aspect
 public class MyAspect {
     @Pointcut("execution(* com.bgw.spring.aop.sample2.service.*.*(..)) ")

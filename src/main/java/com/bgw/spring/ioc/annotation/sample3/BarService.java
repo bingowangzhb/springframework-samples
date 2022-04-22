@@ -14,5 +14,14 @@ import org.springframework.stereotype.Service;
 public class BarService {
     @Qualifier("fooService")
     @Autowired
-    private FooService fooService;
+    private static FooService fooService;
+
+
+    public static FooService getFooService() {
+        return fooService;
+    }
+
+    public static void setFooService(FooService fooService) {
+        BarService.fooService = fooService;
+    }
 }

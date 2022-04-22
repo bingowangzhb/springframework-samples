@@ -12,9 +12,6 @@ import org.springframework.stereotype.Service;
 @Service("barService")
 public class BarServiceImpl implements BarService {
 
-    @Autowired
-    private FooService fooService;
-
     @Override
     public String bar(String name, int age) {
         System.out.println("-------------------------bar()------------------------------");

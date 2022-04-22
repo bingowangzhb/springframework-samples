@@ -1,0 +1,32 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class DefaultResourceLoader implements ResourceLoader {}
+interface ListableBeanFactory extends BeanFactory {}
+interface HierarchicalBeanFactory extends BeanFactory {}
+interface ApplicationContext extends EnvironmentCapable, ListableBeanFactory, HierarchicalBeanFactory, MessageSource, ApplicationEventPublisher, ResourcePatternResolver { }
+interface ConfigurableApplicationContext extends ApplicationContext, Lifecycle, Closeable {}
+interface WebApplicationContext extends ApplicationContext {}
+interface ConfigurableWebApplicationContext extends WebApplicationContext, ConfigurableApplicationContext {}
+
+abstract class AbstractApplicationContext extends DefaultResourceLoader implements ConfigurableApplicationContext {}
+abstract class AbstractRefreshableApplicationContext extends AbstractApplicationContext {}
+abstract class AbstractRefreshableConfigApplicationContext extends AbstractRefreshableApplicationContext implements BeanNameAware, InitializingBean {}
+abstract class AbstractRefreshableWebApplicationContext extends AbstractRefreshableConfigApplicationContext implements ConfigurableWebApplicationContext, ThemeSource {}
+abstract class AbstractXmlApplicationContext extends AbstractRefreshableConfigApplicationContext {}
+
+class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {}
+class FileSystemXmlApplicationContext extends AbstractXmlApplicationContext {}
+class GenericApplicationContext extends AbstractApplicationContext implements BeanDefinitionRegistry {}
+class AnnotationConfigApplicationContext extends GenericApplicationContext implements AnnotationConfigRegistry {}
+ class XmlWebApplicationContext extends AbstractRefreshableWebApplicationContext {}
+class GenericWebApplicationContext extends GenericApplicationContext implements ConfigurableWebApplicationContext, ThemeSource {}
+
+interface WebServerApplicationContext extends ApplicationContext {}
+interface ConfigurableWebServerApplicationContext extends ConfigurableApplicationContext, WebServerApplicationContext {}
+class ServletWebServerApplicationContext extends GenericWebApplicationContext implements ConfigurableWebServerApplicationContext {}
+
+class AnnotationConfigServletWebServerApplicationContext extends ServletWebServerApplicationContext implements AnnotationConfigRegistry {}
+class AnnotationConfigWebApplicationContext extends AbstractRefreshableWebApplicationContext implements AnnotationConfigRegistry {}
+
+@enduml

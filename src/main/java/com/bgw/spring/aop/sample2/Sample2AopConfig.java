@@ -2,6 +2,7 @@ package com.bgw.spring.aop.sample2;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * Sample2AopConfig
@@ -9,18 +10,9 @@ import org.springframework.context.annotation.Configuration;
  * @author bgw
  * @since 2020/8/9 23:14
  **/
+@EnableAspectJAutoProxy
 @Configuration
-@ComponentScan({"com.bgw.spring.aop.sample2.service"})
-public class Sample2AopConfig {
-
-//    @Bean
-//    public MyAspect myAspect() {
-//        return new MyAspect();
-//    }
-//
-//    @Bean
-//    public BarService barService() {
-//        return new BarServiceImpl();
-//    }
-
+@ComponentScan({"com.bgw.spring.aop.sample2"})
+public class Sample2AopConfig implements Config {
+    //  nothing to config
 }
