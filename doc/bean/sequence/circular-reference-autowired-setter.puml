@@ -36,7 +36,12 @@ User -> A ++ : getBean
                             return
                         return
                     return
-                    D -> D : initializingBean
+                    D -> D ++ : initializingBean
+                        D -> D : invokeAwareMethods
+                        D -> D : postProcessBeforeInitialization
+                        D -> D : invokeInitMethods
+                        D -> D : postProcessAfterInitialization
+                    return
                 return
             return
         return

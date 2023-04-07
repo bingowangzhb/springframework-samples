@@ -26,8 +26,9 @@ public class Sample8TestCase {
         //System.out.println(applicationContext.getBean("person").getClass());
         //System.out.println(applicationContext.getBean("personHolder").getClass());
 
-        //System.out.println("applicationContext.getBean(\"cat\") = " + applicationContext.getBean("cat").getClass());
-        //System.out.println("applicationContext.getBean(\"&cat\") = " + applicationContext.getBean("&cat").getClass());
+        System.out.println("applicationContext.getBean(\"cat\") = " + applicationContext.getBean("cat").getClass());
+        System.out.println("applicationContext.getBean(\"cat\") = " + applicationContext.getBean("cat").getClass());
+        // System.out.println("applicationContext.getBean(\"&cat\") = " + applicationContext.getBean("&cat").getClass());
     }
 }
 
